@@ -1,0 +1,18 @@
+package com.tech;
+
+import java.util.HashMap;
+
+public class Currency_Converter {
+
+	public static void main(String[] args) {
+		
+		HashMap<Integer,String> currencyCodes=new HashMap<Integer, String>();
+		currencyCodes.put(1,"USA");
+		currencyCodes.put(1,"CAD");
+		currencyCodes.put(1,"EUR");
+		currencyCodes.put(1,"HKD");
+		currencyCodes.put(1,"INR");
+		
+	}
+
+}

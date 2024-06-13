@@ -1,0 +1,33 @@
+package com.tech;
+
+import javax.servlet.http.HttpServlet;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+@Controller
+public class Subject_Controller{
+	@Autowired
+	private Subject_Service Subject_Service;
+
+	@RequestMapping("/index")
+	public ModelAndView validateUser(@RequestParam("sub1") int sub1, @RequestParam("sub2") int sub2,
+			@RequestParam("sub3") int sub3,@RequestParam("sub4") int sub4,@RequestParam("sub5") int sub5)
+	
+	{
+		System.out.println(sub1 +" "+sub2+" "+sub3+" "+sub4+" "+sub5);
+		
+		boolean result = Subject_Service.subjects(username, password);
+		System.out.println("the response from loginService.validateUser is :" + result);
+
+		if (result) {
+			ModelAndView mav = new ModelAndView("login_success");
+			return mav;
+		} else {
+			ModelAndView mav = new ModelAndView("login_failure");
+			return mav;
+		}
+
+}

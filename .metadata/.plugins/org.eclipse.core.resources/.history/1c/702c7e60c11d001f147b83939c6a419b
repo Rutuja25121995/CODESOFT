@@ -1,0 +1,101 @@
+package com.tech;
+
+import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+public class StudentManagementSystem extends Application{
+
+	public static void main(String[] args) {
+		launch(args);
+
+	}
+	 
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		 ObservableList<Student> data = FXCollections.observableArrayList();
+
+	        TableView<Student> tableView = new TableView<>(data);
+
+	        TableColumn<Student, String> idColumn = new TableColumn<>("ID");
+	        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+
+	        TableColumn<Student, String> nameColumn = new TableColumn<>("Name");
+	        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+	        TableColumn<Student, Integer> rollNoColumn = new TableColumn<>("Roll No");
+	        rollNoColumn.setCellValueFactory(new PropertyValueFactory<>("rollNo"));
+
+	        TableColumn<Student, Character> gradeColumn = new TableColumn<>("Grade");
+	        gradeColumn.setCellValueFactory(new PropertyValueFactory<>("grade"));
+
+	        tableView.getColumns().addAll(idColumn, nameColumn, rollNoColumn, gradeColumn);
+
+	        TextField idField = new TextField();
+	        idField.setPromptText("ID");
+
+	        TextField nameField = new TextField();
+	        nameField.setPromptText("Name");
+
+	        TextField rollNoField = new TextField();
+	        rollNoField.setPromptText("Roll No");
+
+	        TextField gradeField = new TextField();
+	        gradeField.setPromptText("Grade");
+
+	        Button addButton = new Button("Add");
+	        addButton.setOnAction(e -> {
+	            String id = idField.getText();
+	            String name = nameField.getText();
+	            String rollNoText = rollNoField.getText();
+	            String gradeText = gradeField.getText();
+
+	            if (id.isEmpty() || name.isEmpty() || rollNoText.isEmpty() || gradeText.isEmpty()) {
+	                // Handle empty field case, e.g., show an alert or set an error message
+	                System.out.println("All fields must be filled out.");
+	                return;
+	            }
+
+	            try {
+	                int rollNo = Integer.parseInt(rollNoText);
+
+	                // Ensure gradeText has exactly one character
+	                if (gradeText.length() != 1) {
+	                    System.out.println("Grade must be a single character.");
+	                    return;
+	                }
+	                char grade = gradeText.charAt(0);
+
+	                data.add(new Student(id, name, rollNo, grade));
+
+	                // Clear fields after adding
+	                idField.clear();
+	                nameField.clear();
+	                rollNoField.clear();
+	                gradeField.clear();
+	            } catch (NumberFormatException ex) {
+	                // Handle number format exception for roll number
+	                System.out.println("Roll number must be a valid integer.");
+	            }
+	        });
+
+	        VBox vbox = new VBox(idField, nameField, rollNoField, gradeField, addButton, tableView);
+
+	        Scene scene = new Scene(vbox);
+	        primaryStage.setScene(scene);
+	        primaryStage.setTitle("Student App");
+	        primaryStage.show();
+	    }
+}
+	
+	
+
+

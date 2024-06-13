@@ -1,0 +1,14 @@
+package com.tech.dao;
+
+public class Subject_dao {
+	public int subjects(int sub1,int sub2,int sub3,int sub4,int sub5 ) {
+		if ((sub1 && sub2 && sub3 && sub4 && sub5) !=null ) {
+			System.out.println("record present in database");
+			return 1;
+		} else {
+			System.out.println("record not present in database");
+			return 0;
+		}
+
+	}
+}

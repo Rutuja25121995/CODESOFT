@@ -1,0 +1,6 @@
+@charset "UTF-8";
+.in{
+	width:250px;
+	height:30px;
+	color:red;
+}

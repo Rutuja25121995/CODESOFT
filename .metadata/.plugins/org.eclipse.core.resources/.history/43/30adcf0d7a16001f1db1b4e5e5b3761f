@@ -1,0 +1,15 @@
+package com.tech.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class Subject_Service {
+	@Autowired
+	private Subject_dao loginDao;
+
+	public boolean validateUser(String username, String password) {
+		boolean validateUser = loginDao.validateUser(username, password);
+		return validateUser;
+	}
+}

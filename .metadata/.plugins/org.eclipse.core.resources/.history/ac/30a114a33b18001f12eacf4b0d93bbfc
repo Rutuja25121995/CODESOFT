@@ -1,0 +1,13 @@
+package com.tech;
+
+import java.util.HashMap;
+
+public class Currency_Converter {
+
+	public static void main(String[] args) {
+		
+		HashMap<Integer, String> currencyCodes=new HashMap<Integer, String>();
+
+	}
+
+}

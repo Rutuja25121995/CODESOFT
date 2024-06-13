@@ -1,0 +1,66 @@
+package com.tech;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.util.Scanner;
+import org.json.JSONObject;
+
+public class Currency_Converter {
+
+    private static final String API_KEY = "your_api_key_here";
+    private static final String API_URL = "https://v6.exchangerate-api.com/v6/" + API_KEY + "/latest/";
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.println("Currency Converter");
+
+        // Select base currency
+        System.out.print("Enter base currency (e.g., USD): ");
+        String baseCurrency = scanner.next().toUpperCase();
+
+        // Select target currency
+        System.out.print("Enter target currency (e.g., EUR): ");
+        String targetCurrency = scanner.next().toUpperCase();
+
+        // Enter amount to convert
+        System.out.print("Enter amount to convert: ");
+        double amount = scanner.nextDouble();
+
+        // Fetch exchange rate and convert currency
+        try {
+            double exchangeRate = fetchExchangeRate(baseCurrency, targetCurrency);
+            if (exchangeRate == -1) {
+                System.out.println("Error fetching exchange rate. Please try again later.");
+            } else {
+                double convertedAmount = convertCurrency(amount, exchangeRate);
+                System.out.printf("Converted Amount: %.2f %s%n", convertedAmount, targetCurrency);
+            }
+        } catch (Exception e) {
+            System.out.println("An error occurred: " + e.getMessage());
+        }
+
+        scanner.close();
+    }
+
+    private static double fetchExchangeRate(String baseCurrency, String targetCurrency) throws Exception {
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(new URI(API_URL + baseCurrency))
+                .build();
+        
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        
+        if (response.statusCode() == 200) {
+            JSONObject jsonResponse = new JSONObject(response.body());
+            return jsonResponse.getJSONObject("conversion_rates").getDouble(targetCurrency);
+        } else {
+            return -1;
+        }
+    }
+
+    private static double convertCurrency(double amount, double exchangeRate) {
+        return amount * exchangeRate;
+    }
+}

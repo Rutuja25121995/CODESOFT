@@ -1,0 +1,129 @@
+package com.tech;
+
+import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+public class StudentManagementSystem extends Application{
+
+	public static void main(String[] args) {
+		launch(args);
+
+	}
+	 
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public void start(@SuppressWarnings("exports") Stage primaryStage) throws Exception {
+		 ObservableList<StudentInfo> data = FXCollections.observableArrayList();
+
+	        TableView<StudentInfo> tableView = new TableView<>(data);
+
+	        TableColumn<StudentInfo, String> idColumn = new TableColumn<>("ID");
+	        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+
+	        TableColumn<StudentInfo, String> nameColumn = new TableColumn<>("Name");
+	        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+	        TableColumn<StudentInfo, Integer> rollNoColumn = new TableColumn<>("Roll No");
+	        rollNoColumn.setCellValueFactory(new PropertyValueFactory<>("rollNo"));
+
+	        TableColumn<StudentInfo, Character> gradeColumn = new TableColumn<>("Grade");
+	        gradeColumn.setCellValueFactory(new PropertyValueFactory<>("grade"));
+
+	        tableView.getColumns().addAll(idColumn, nameColumn, rollNoColumn, gradeColumn);
+
+	        TextField idField = new TextField();
+	        idField.setPromptText("ID");
+
+	        TextField nameField = new TextField();
+	        nameField.setPromptText("Name");
+
+	        TextField rollNoField = new TextField();
+	        rollNoField.setPromptText("Roll No");
+
+	        TextField gradeField = new TextField();
+	        gradeField.setPromptText("Grade");
+
+	        Button addButton = new Button("Add");
+	        addButton.setOnAction(e -> {
+	            String id = idField.getText();
+	            String name = nameField.getText();
+	            String rollNoText = rollNoField.getText();
+	            String gradeText = gradeField.getText();
+
+	            if (id.isEmpty() || name.isEmpty() || rollNoText.isEmpty() || gradeText.isEmpty()) {
+	                // Handle empty field case, e.g., show an alert or set an error message
+	                System.out.println("All fields must be filled out.");
+	                return;
+	            }
+
+	            try {
+	                int rollNo = Integer.parseInt(rollNoText);
+
+	                // Ensure gradeText has exactly one character
+	                if (gradeText.length() != 1) {
+	                    System.out.println("Grade must be a single character.");
+	                    return;
+	                }
+	                char grade = gradeText.charAt(0);
+
+	                data.add(new StudentInfo(id, name, rollNo, grade));
+
+	                // Clear fields after adding
+	                idField.clear();
+	                nameField.clear();
+	                rollNoField.clear();
+	                gradeField.clear();
+	            } catch (NumberFormatException ex) {
+	                // Handle number format exception for roll number
+	                System.out.println("Roll number must be a valid integer.");
+	            }
+	        });
+
+	        VBox vbox = new VBox(idField, nameField, rollNoField, gradeField, addButton, tableView);
+
+	        Scene scene = new Scene(vbox);
+	        primaryStage.setScene(scene);
+	        primaryStage.setTitle("Student App");
+	        primaryStage.show();
+	    }
+}
+	
+ class Student {
+	
+
+	private String id;
+    private String name;
+    private int rollNo;
+    private char grade;
+
+    public Student(String id, String name, int rollNo, char grade) {
+        this.id = id;
+        this.name = name;
+        this.rollNo = rollNo;
+        this.grade = grade;
+    }
+
+    // Getters and setters
+    public String getId() { return id; }
+    public String getName() { return name; }
+    public int getRollNo() { return rollNo; }
+    public char getGrade() { return grade; }
+
+    public void setId(String id) { this.id = id; }
+    public void setName(String name) { this.name = name; }
+    public void setRollNo(int rollNo) { this.rollNo = rollNo; }
+    public void setGrade(char grade) { this.grade = grade; }
+}
+
+
+

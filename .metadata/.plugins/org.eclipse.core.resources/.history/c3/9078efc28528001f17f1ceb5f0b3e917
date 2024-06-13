@@ -1,0 +1,125 @@
+package com.tech;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class StudentManagementSystem {
+    private List<StudentInfo> StudentInfos;
+    private static final String FILE_NAME = "StudentInfos.dat";
+
+    public StudentManagementSystem() {
+        StudentInfos = loadStudentInfos();
+    }
+
+    public void addStudentInfo(StudentInfo StudentInfo) {
+        StudentInfos.add(StudentInfo);
+        saveStudentInfos();
+    }
+
+    public void removeStudentInfo(String rollNumber) {
+        StudentInfos.removeIf(StudentInfo -> StudentInfo.getRollNumber().equals(rollNumber));
+        saveStudentInfos();
+    }
+
+    public StudentInfo searchStudentInfo(String rollNumber) {
+        return StudentInfos.stream()
+                .filter(StudentInfo -> StudentInfo.getRollNumber().equals(rollNumber))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public void displayAllStudentInfos() {
+        if (StudentInfos.isEmpty()) {
+            System.out.println("No StudentInfos found.");
+        } else {
+            StudentInfos.forEach(System.out::println);
+        }
+    }
+
+    private List<StudentInfo> loadStudentInfos() {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILE_NAME))) {
+            return (List<StudentInfo>) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            return new ArrayList<>();
+        }
+    }
+
+    private void saveStudentInfos() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_NAME))) {
+            oos.writeObject(StudentInfos);
+        } catch (IOException e) {
+            System.out.println("Error saving StudentInfo data: " + e.getMessage());
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        StudentInfoManagementSystem sms = new StudentInfoManagementSystem();
+
+        while (true) {
+            System.out.println("\nStudentInfo Management System");
+            System.out.println("1. Add StudentInfo");
+            System.out.println("2. Remove StudentInfo");
+            System.out.println("3. Search StudentInfo");
+            System.out.println("4. Display All StudentInfos");
+            System.out.println("5. Exit");
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine();  // Consume newline
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter name: ");
+                    String name = scanner.nextLine();
+                    System.out.print("Enter roll number: ");
+                    String rollNumber = scanner.nextLine();
+                    System.out.print("Enter grade: ");
+                    String grade = scanner.nextLine();
+
+                    if (name.isEmpty() || rollNumber.isEmpty() || grade.isEmpty()) {
+                        System.out.println("All fields are required.");
+                    } else {
+                        sms.addStudentInfo(new StudentInfoInfo(name, rollNumber, grade));
+                        System.out.println("StudentInfo added successfully.");
+                    }
+                    break;
+
+                case 2:
+                    System.out.print("Enter roll number of the StudentInfo to remove: ");
+                    rollNumber = scanner.nextLine();
+                    sms.removeStudentInfo(rollNumber);
+                    System.out.println("StudentInfo removed successfully.");
+                    break;
+
+                case 3:
+                    System.out.print("Enter roll number of the StudentInfo to search: ");
+                    rollNumber = scanner.nextLine();
+                    StudentInfoInfo StudentInfo = sms.searchStudentInfo(rollNumber);
+                    if (StudentInfo != null) {
+                        System.out.println(StudentInfo);
+                    } else {
+                        System.out.println("StudentInfo not found.");
+                    }
+                    break;
+
+                case 4:
+                    sms.displayAllStudentInfos();
+                    break;
+
+                case 5:
+                    System.out.println("Exiting...");
+                    scanner.close();
+                    return;
+
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+                    break;
+            }
+        }
+    }
+}
+
+
+

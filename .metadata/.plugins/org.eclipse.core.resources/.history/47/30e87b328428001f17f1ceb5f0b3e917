@@ -1,0 +1,13 @@
+/**
+ * 
+ */
+/**
+ * @author shree
+ *
+ */
+module Currancy_Converter {
+	requires org.json;
+	requires java.base;
+	requires java.net.http;
+	
+}

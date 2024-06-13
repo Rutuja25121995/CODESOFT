@@ -1,0 +1,15 @@
+package com.tech;
+
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class Subject_dao {
+	
+public float total(float sub1,float sub2,float sub3,float sub4,float sub5 )
+	
+	{
+		float Totalmarks = sub1 + sub2 +sub3 + sub4 + sub5;
+		float percentage=(Totalmarks*100)/500;
+		return percentage;
+	}
+}

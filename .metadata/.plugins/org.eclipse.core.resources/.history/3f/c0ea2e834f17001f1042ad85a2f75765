@@ -1,0 +1,77 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+
+<title>Insert title here</title>
+</head>
+<style>
+.in{
+width:250px;
+height:30px;
+border:1px solid  #4d004d;
+border-radius:10px;
+text-align: center;
+color: #4d004d;
+
+}
+input:hover{
+box-shadow: 2px 2px 2px grey;
+}
+h1{
+text-shadow: 2px 2px 4px #e0e0eb;
+color: #4d004d;
+}
+.button{
+width:260px;
+height:35px;
+border-radius:10px;
+background: #4d004d;
+color:white;
+}
+.div1{
+background: #4d004d;
+width:800px;
+height:500px;
+border-radius:10px;
+padding-top:1px;
+padding-bottom:100px;
+}
+.div2{
+width:500px;
+height:400px;
+margin-top:100px;
+background:white;
+box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.10), 0 6px 20px 0 rgba(0, 0, 0, 0.30);
+border-radius:10px;
+padding-top:5px;
+}
+body{
+background:lightgrey;
+}
+::placeholder {
+  color: grey;
+  opacity: 1;
+}
+</style>
+<body>
+<center>
+<div class="div1">
+<div class="div2">
+<h1>Student Grade Calculator</h1>
+<form action="hello">
+<input class="in" type="number" name="sub1"placeholder="enter subject 1"required><br><br>
+<input class="in" type="number" name="sub2"placeholder="enter subject 2"required><br><br>
+<input class="in" type="number" name="sub3"placeholder="enter subject 3"required><br><br>
+<input class="in" type="number" name="sub4"placeholder="enter subject 4"required><br><br>
+<input class="in" type="number" name="sub5"placeholder="enter subject 5"required><br><br>
+<input class="button" type="submit" value="Calculate"><br><br>
+</form>
+</div>
+</div>
+</center>
+</body>
+</html>

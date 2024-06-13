@@ -1,0 +1,29 @@
+package com.tech;
+
+import java.util.HashMap;
+import java.util.Scanner;
+
+public class Currency_Converter {
+
+	public static void main(String[] args) {
+
+		HashMap<Integer, String> currencyCodes = new HashMap<Integer,String>();
+		currencyCodes.put(1, "USD");
+		currencyCodes.put(2, "CAD");
+		currencyCodes.put(3, "EUR");
+		currencyCodes.put(4, "HKD");
+		currencyCodes.put(5, "INR");
+		
+		String fromCode,toCode;
+		double amount;
+		
+		Scanner sc=new Scanner(System.in);
+		System.out.println("welcome to currency converter");
+		
+		System.out.println("currency  converting starting from?");
+		
+		System.out.println("1:USD \t 2:CAD \t 3:EUR \t 4:HKD \t 5:INR");
+
+	}
+
+}

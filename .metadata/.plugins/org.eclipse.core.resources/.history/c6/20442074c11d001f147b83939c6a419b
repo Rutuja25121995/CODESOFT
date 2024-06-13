@@ -1,0 +1,28 @@
+package com.tech;
+
+public class Student {
+	
+
+	private String id;
+    private String name;
+    private int rollNo;
+    private char grade;
+
+    public Student(String id, String name, int rollNo, char grade) {
+        this.id = id;
+        this.name = name;
+        this.rollNo = rollNo;
+        this.grade = grade;
+    }
+
+    // Getters and setters
+    public String getId() { return id; }
+    public String getName() { return name; }
+    public int getRollNo() { return rollNo; }
+    public char getGrade() { return grade; }
+
+    public void setId(String id) { this.id = id; }
+    public void setName(String name) { this.name = name; }
+    public void setRollNo(int rollNo) { this.rollNo = rollNo; }
+    public void setGrade(char grade) { this.grade = grade; }
+}
